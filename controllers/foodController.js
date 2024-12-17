@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
-import gfs from "../config/db.js";
+// import gfs from "../config/db.js";
+// import streamifier from 'streamifier';  // Import streamifier to convert buffer to readable stream
 import foodModel from "../models/foodModel.js";
 import fs from "fs";
+// import gfs from "../server.js";
+// import Grid from "gridfs-stream";
+
+// let gfs = Grid(mongoose.connection.db, mongoose.mongo);
+// gfs.collection("uploads");
+// console.log('gfs...',gfs);
 
 // all food list
 const listFood = async (req, res) => {
@@ -14,37 +21,35 @@ const listFood = async (req, res) => {
   }
 };
 
-
 // get food image
 
 // const getFoodImage = (req, res) => {
-//     const fileId = req.params.id;  // Get the file ID from the URL parameter
+//   const fileId = req.params.id; // Get the file ID from the URL parameter
 
-//     // Find the file by its GridFS file ID
-//     gfs.files.findOne({ _id: mongoose.Types.ObjectId(fileId) }, (err, file) => {
-//         if (err || !file) {
-//             // If file is not found or an error occurs, send a 404 response
-//             return res.status(404).send("File not found");
-//         }
+//   // Find the file by its GridFS file ID
+//   gfs.files.findOne({ _id: mongoose.Types.ObjectId(fileId) }, (err, file) => {
+//     if (err || !file) {
+//       // If file is not found or an error occurs, send a 404 response
+//       return res.status(404).send("File not found");
+//     }
 
-//         // Set the correct Content-Type for the image
-//         res.set('Content-Type', file.contentType);
+//     // Set the correct Content-Type for the image
+//     res.set("Content-Type", file.contentType);
 
-//         // Create a read stream to fetch the file from GridFS
-//         const readstream = gfs.createReadStream({ _id: file._id });
+//     // Create a read stream to fetch the file from GridFS
+//     const readstream = gfs.createReadStream({ _id: file._id });
 
-//         // Pipe the file stream directly to the response so the image is served
-//         readstream.pipe(res);
-//     });
+//     // Pipe the file stream directly to the response so the image is served
+//     readstream.pipe(res);
+//   });
 // };
-
-
 
 // add food
 
 // const addFood = async (req, res) => {
 //   try {
 //     // Check if a file was uploaded
+//     console.log("inside try....");
 //     if (!req.file) {
 //       return res
 //         .status(400)
@@ -54,6 +59,10 @@ const listFood = async (req, res) => {
 //     // Destructure file from req.file
 //     const { originalname, buffer, mimetype } = req.file;
 
+//     // const readableStream = streamifier.createReadStream(buffer);
+    
+//     console.log('gfs inside foodcontroller...',gfs);
+
 //     // Create a writable stream to GridFS
 //     const writestream = gfs.createWriteStream({
 //       filename: originalname,
@@ -61,10 +70,12 @@ const listFood = async (req, res) => {
 //     });
 
 //     // Pipe the file buffer to GridFS
+//     // readableStream.pipe(writestream);
 //     writestream.write(buffer);
 //     writestream.end();
 
 //     writestream.on("close", async (file) => {
+//       console.log("file......", file);
 //       const result = await saveFoodData(req.body, file._id);
 
 //       if (result.success) {
@@ -88,23 +99,23 @@ const listFood = async (req, res) => {
 // };
 
 // const saveFoodData = async (data, id) => {
-//     const foodData = {
-//       name: data.name,
-//       description: data.description,
-//       price: data.price,
-//       category: data.category,
-//       image: id, // Store the GridFS file ID in the database
-//     };
-//     try {
-//       // Create a new instance of foodModel and save it to MongoDB
-//       const food = new foodModel(foodData);
-//       await food.save();
-//       return { success: true, food }; // Return success and the saved food object
-//     } catch (error) {
-//       console.log(error);
-//       return { success: false, message: "Error saving food data" }; // Handle errors
-//     }
+//   const foodData = {
+//     name: data.name,
+//     description: data.description,
+//     price: data.price,
+//     category: data.category,
+//     image: id, // Store the GridFS file ID in the database
 //   };
+//   try {
+//     // Create a new instance of foodModel and save it to MongoDB
+//     const food = new foodModel(foodData);
+//     await food.save();
+//     return { success: true, food }; // Return success and the saved food object
+//   } catch (error) {
+//     console.log(error);
+//     return { success: false, message: "Error saving food data" }; // Handle errors
+//   }
+// };
 
 const addFood = async (req, res) => {
     try {
@@ -126,7 +137,6 @@ const addFood = async (req, res) => {
     }
 }
 
-
 // delete food
 const removeFood = async (req, res) => {
   try {
@@ -142,5 +152,5 @@ const removeFood = async (req, res) => {
 };
 
 export { listFood, addFood, removeFood,
-  //  getFoodImage
-   };
+  //  getFoodImage 
+  };

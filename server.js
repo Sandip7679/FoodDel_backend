@@ -18,7 +18,8 @@ app.use(express.json())
 app.use(cors())
 
 // db connection
-connectDB()
+connectDB();
+// console.log('gfs on server.js...',gfs);
 
 // api endpoints
 app.use("/api/user", userRouter)
@@ -35,3 +36,5 @@ app.get("/", (req, res) => {
   });
 
 app.listen(port, () => console.log(`Server started on http://localhost:${port}`))
+
+// export default gfs;
