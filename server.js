@@ -12,13 +12,13 @@ import orderRouter from "./routes/orderRoute.js"
 const app = express()
 const port = process.env.PORT || 3000;
 
-const coreOptions = {
-  origin:"https://getfoodymood.netlify.app",
-  methods:["GET","POST","PUT","DELETE"],
-  allowedHeaders:["Content-Type","Authorization"],
-}
+// const coreOptions = {
+//   origin:"https://getfoodymood.netlify.app",
+//   methods:["GET","POST","PUT","DELETE"],
+//   allowedHeaders:["Content-Type","Authorization"],
+// }
 // middlewares
-app.use(express.json(coreOptions));
+app.use(express.json());
 app.use(cors())
 
 // db connection
