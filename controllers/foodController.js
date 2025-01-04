@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 // import gfs from "../config/db.js";
 // import streamifier from 'streamifier';  // Import streamifier to convert buffer to readable stream
 import foodModel from "../models/foodModel.js";
-import fs from "fs";
+// import fs from "fs";
 import uploadImageClodinary from "../utils/uploadImageClodinary.js";
 // import gfs from "../server.js";
 // import Grid from "gridfs-stream";
@@ -121,22 +121,23 @@ const listFood = async (req, res) => {
 
 
 const addFood = async (req, res) => {
+  // console.log('req..',req.file);
 
     try {
-
       const uploadedImage = await uploadImageClodinary(req.file);
-
+           console.log("uploadedImage.url...",uploadedImage.url);
+           console.log("typeof req.body.price..",typeof req.body.price);
         // let image_filename = `${req.file.filename}`
         const food = new foodModel({
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
             category:req.body.category,
-            image: uploadedImage,
+            image: uploadedImage.url,
         })
 
         await food.save();
-        res.json({ success: true, message: "Food Added",image:uploadedImage })
+        res.json({ success: true, message: "Food Added",image:uploadedImage.url })
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: "Error" })
