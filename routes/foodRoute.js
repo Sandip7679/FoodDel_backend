@@ -7,12 +7,12 @@ const foodRouter = express.Router();
 
 const storage = multer.diskStorage({
     // destination: 'uploads',
-    destination: (req, file, cb) =>{
-       return cb(null, 'public/uploads');  // Save uploaded files in the 'public/uploads' folder
-    },
-    filename: (req, file, cb) => {
-        return cb(null,`${Date.now()}${file.originalname}`);
-    }
+    // destination: (req, file, cb) =>{
+    //    return cb(null, 'public/uploads');  // Save uploaded files in the 'public/uploads' folder
+    // },
+    // filename: (req, file, cb) => {
+    //     return cb(null,`${Date.now()}${file.originalname}`);
+    // }
 })
 
 // const storage = multer.memoryStorage();
