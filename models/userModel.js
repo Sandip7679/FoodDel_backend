@@ -8,4 +8,6 @@ const userSchema = new mongoose.Schema({
 }, { minimize: false })
 
 const userModel = mongoose.model.user || mongoose.model("user", userSchema);
+const adminModel = mongoose.model.admin || mongoose.model("admin", userSchema);
 export default userModel;
+export  {adminModel};
